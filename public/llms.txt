@@ -1,0 +1,6 @@
+# Tamil Movie Imposter
+
+> Multiplayer party game where players get a Tamil movie, except the one imposter who only gets clue keywords. Drop clues, spot the imposter.
+
+## Pages
+- [Home](/): Create or join a Tamil Movie Imposter game room
