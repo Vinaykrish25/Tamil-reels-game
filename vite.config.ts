@@ -46,8 +46,9 @@ export default defineConfig(({ command }) => {
           },
         },
       }),
-      // Only run Nitro's build plugin during production build
-      command === "build" ? nitro({ defaultPreset: "cloudflare-module" }) : null,
+      command === "build"
+        ? nitro({ defaultPreset: process.env.NITRO_PRESET || "cloudflare-module" })
+        : null,
       react(),
     ].filter(Boolean),
   };
