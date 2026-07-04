@@ -462,7 +462,7 @@ function getClientRoomState(roomId: string, userId: string | null) {
   }
 
   // Get current game's movie
-  let movie: Movie | null = null;
+  let movie: (Omit<Movie, "room_id"> & { room_id?: string | null }) | null = null;
   if (game && game.revealed_movie_id) {
     if (game.revealed_movie_id.startsWith("m")) {
       movie = DEFAULT_MOVIES.find((m) => m.id === game.revealed_movie_id) ?? null;
@@ -653,7 +653,7 @@ io.on("connection", (socket) => {
         id: generateId(),
         game_id: gameId,
         user_id: p.user_id,
-        is_imposter,
+        is_imposter: isImposter,
         secret_text: isImposter ? "You are the Imposter!" : selectedMovie.title,
         clue_hint: isImposter ? "" : selectedMovie.clue,
       };
