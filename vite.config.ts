@@ -46,10 +46,8 @@ export default defineConfig(({ command }) => {
           },
         },
       }),
-      command === "build"
-        ? nitro({ defaultPreset: process.env.NITRO_PRESET || "node-server" })
-        : null,
       react(),
+      nitro(),
     ].filter(Boolean),
   };
 });
