@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Send } from "lucide-react";
-import { useServerFn } from "@tanstack/react-start";
+function useServerFn<T>(fn: T): T {
+  return fn;
+}
 import { sendChat } from "@/lib/game.functions";
 import type { Database } from "@/integrations/supabase/types";
 

@@ -17,7 +17,9 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { useServerFn } from "@tanstack/react-start";
+function useServerFn<T>(fn: T): T {
+  return fn;
+}
 import {
   advancePhase,
   castVote,
@@ -45,11 +47,11 @@ export const Route = createFileRoute("/room/$code")({
 
 const AVATARS = ["🎬", "🎭", "🎪", "🎯", "🎨", "🎧", "🎤", "🕵️", "🦸", "🧙", "🐯", "🦊"];
 
-function useMyPlayer(roomId: string | null, userId: string | null, players: Player[]) {
+function useMyPlayer(userId: string | null, players: Player[]) {
   return useMemo(() => {
     if (!userId) return null;
     return players.find((p) => p.user_id === userId) ?? null;
-  }, [players, userId, roomId]);
+  }, [players, userId]);
 }
 
 function RoomPage() {
@@ -58,7 +60,6 @@ function RoomPage() {
   const navigate = useNavigate();
   const state = useRoomState(code, session?.userId ?? null);
   const me = useMyPlayer(
-    state.room?.id ?? null,
     session?.userId ?? null,
     state.players.filter((p) => !p.kicked),
   );

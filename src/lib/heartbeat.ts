@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
-import { useServerFn } from "@tanstack/react-start";
+function useServerFn<T>(fn: T): T {
+  return fn;
+}
 import { heartbeat } from "./game.functions";
 
 export function useHeartbeat(playerId: string | null) {

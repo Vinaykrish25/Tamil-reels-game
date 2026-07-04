@@ -1,7 +1,9 @@
 import { useState, useMemo } from "react";
 import { X, Plus, Sparkles, Trash2, Search, ArrowUpDown } from "lucide-react";
 import { toast } from "sonner";
-import { useServerFn } from "@tanstack/react-start";
+function useServerFn<T>(fn: T): T {
+  return fn;
+}
 import {
   addCustomMovie,
   deleteCustomMovie,

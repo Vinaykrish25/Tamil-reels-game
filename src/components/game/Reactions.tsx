@@ -1,5 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useServerFn } from "@tanstack/react-start";
+function useServerFn<T>(fn: T): T {
+  return fn;
+}
 import { sendReaction } from "@/lib/game.functions";
 import type { Database } from "@/integrations/supabase/types";
 

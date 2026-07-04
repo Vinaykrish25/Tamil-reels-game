@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { Film, Users, ArrowRight, Sparkles } from "lucide-react";
 import { useAnonSession } from "@/lib/anon-auth";
-import { useServerFn } from "@tanstack/react-start";
+function useServerFn<T>(fn: T): T {
+  return fn;
+}
 import { createRoom, joinRoom } from "@/lib/game.functions";
 
 export const Route = createFileRoute("/")({
