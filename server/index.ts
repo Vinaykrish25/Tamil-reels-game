@@ -855,18 +855,30 @@ io.on("connection", (socket) => {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const publicPath = path.join(__dirname, "../.output/public");
-app.use(express.static(publicPath));
 
-app.get(/.*/, (req, res, next) => {
+let ssrHandler:
+  ((req: import("http").IncomingMessage, res: import("http").ServerResponse) => void) | null = null;
+try {
+  const ssrModule = await import("../.output/server/index.mjs");
+  ssrHandler = ssrModule.handler || ssrModule.default;
+} catch (e) {
+  console.log("[Socket Server] SSR handler not found or not built yet. Running in API-only mode.");
+}
+
+app.use((req, res, next) => {
   if (req.path.startsWith("/api/")) {
     return next();
   }
-  res.sendFile(path.join(publicPath, "index.html"), (err) => {
-    if (err) {
-      res.status(404).send("Not Found");
-    }
-  });
+  if (ssrHandler) {
+    ssrHandler(req, res);
+  } else {
+    const publicPath = path.join(__dirname, "../.output/public");
+    res.sendFile(path.join(publicPath, "index.html"), (err) => {
+      if (err) {
+        res.status(404).send("Not Found");
+      }
+    });
+  }
 });
 
 const PORT = process.env.PORT || 3001;

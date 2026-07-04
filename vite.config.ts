@@ -47,7 +47,7 @@ export default defineConfig(({ command }) => {
         },
       }),
       command === "build"
-        ? nitro({ defaultPreset: process.env.NITRO_PRESET || "cloudflare-module" })
+        ? nitro({ defaultPreset: process.env.NITRO_PRESET || "node-server" })
         : null,
       react(),
     ].filter(Boolean),
