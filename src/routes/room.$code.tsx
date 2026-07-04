@@ -1040,7 +1040,9 @@ function ResultsPhase({
         onClick={async () => {
           const prev = state.toggleOptimisticPlayAgain(me.id, gameId);
           try {
-            await toggle({ data: { gameId, playerId: me.id } });
+            await toggle({
+              data: { roomId: state.room?.id ?? "", gameId, playerId: me.id },
+            });
           } catch (err) {
             toast.error("Failed to toggle play again");
             state.rollbackPlayAgain(prev);

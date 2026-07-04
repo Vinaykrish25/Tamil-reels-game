@@ -34,8 +34,7 @@ export const joinRoom = async ({
   data: { code: string; displayName: string; avatarSeed: string; userId?: string };
 }) => {
   return new Promise<{ roomId: string; playerId: string }>((resolve, reject) => {
-    const finalUserId =
-      data.userId || socket.auth?.userId || localStorage.getItem("tmi:anon:userId");
+    const finalUserId = data.userId || localStorage.getItem("tmi:anon:userId");
 
     if (!finalUserId) {
       return reject(new Error("No user session found"));
